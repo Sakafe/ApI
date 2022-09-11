@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Temperature Hot</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background: url(images/bg-image.jpg) no-repeat;
+            background-size: cover;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form class="col-md-6 m-auto py-5">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Enter a location for Weather ..." id="input-btn">
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-danger" id="search-btn">Search</button>
+                </div>
+            </div>
+        </form>
+        <div class="weather-status text-white text-center">
+            <img src="https://openweathermap.org/img/wn/02d@2x.png" alt="">
+            <h1 id="city">Dhaka</h1>
+            <h3><span id="tempa">38.06</span>&deg;C</h3>
+            <h1 class="lead" id="des">Clouds</h1>
+        </div>
+    </div>
+
+    <script>
+        const searchbtn = document.getElementById('search-btn');
+        searchbtn.addEventListener('click',function(){
+           const inputbtn = document.getElementById('input-btn').value;
+           fetch('https://api.openweathermap.org/data/2.5/weather?q='+inputbtn+'&appid=3a0cd453c3f2e68aea94d3345f442b51')
+           .then(response => response.json())
+           .then(data =>{
+            console.log(data);
+            const cityname = data.name;
+            const tem = data.main.temp;
+            const temp = tem -273.15;
+            const description = data.weather[0].description;
+            document.getElementById('city').innerText = cityname;
+            document.getElementById('tempa').innerText = temp;
+            document.getElementById('des').innerText = description;
+            
+           
+
+           })
+
+        })
+        
+    </script>
+
+</body>
+
+</html>
